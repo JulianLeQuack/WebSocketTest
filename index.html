@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var ws = new WebSocket("ws://localhost:3000");
+        ws.onopen = () => {
+            console.log("Connection established!");
+        };
+        ws.onclose = () => {
+            console.log("Connection closed!");
+        };
+        ws.onmessage = (msg) => {
+            console.log(msg.data);
+            var div = document.getElementById("div1");
+            div.innerHTML += msg.data;
+            div.innerText += "\n"
+        };
+        function Submit() {
+            console.log("Click submitted!");
+            ws.send("Button on website has been clicked!");
+        }
+    </script>
+</head>
+<body>
+    <h1>
+        Welcome to my Page!
+    </h1>
+    <button id="button1" onclick="Submit()">
+        Click me!
+    </button>
+    <h3>
+        This is where Click Messages appear!
+    </h3>
+    <div id="div1">
+    </div>
+</body>
+</html>
